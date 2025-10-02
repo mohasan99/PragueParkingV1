@@ -18,7 +18,7 @@ Reasoning / Learning:
   - Strings → simpler, matches assignment, but less flexible.
   - Classes → more maintainable in real projects, but outside the scope of this task.
 
- ------------------------------------------------------------------------------------------------------
+ -------------------------------------------------------------------
  
 ## 29-09-2025
 Work done:
@@ -31,3 +31,13 @@ Reasoning / Learning:
 - Classes are useful in larger projects for organization and scalability, but here they added unnecessary complexity.
 - Using only methods and arrays matches the assignment and makes the code more approachable.
 
+--------------------------------------------------------------------
+## 02/10/2025
+Work done:
+Added helper methods to handle vehicles and slots more cleanly (Vehicles, EncodeVehicle, NormalizePlate, etc.).
+Chose to keep code beginner-friendly and simple, even if it sacrifices some advanced features (e.g., ignoring MC position inside the slot).
+Kept working on the code.
+
+Reasoning / Learning:
+Writing many small helper methods makes the code easier to read and maintain.
+It’s more important in this assignment to show understanding of arrays and strings than to build a complex solution.
