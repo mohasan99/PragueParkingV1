@@ -41,3 +41,12 @@ Kept working on the code.
 Reasoning / Learning:
 Writing many small helper methods makes the code easier to read and maintain.
 It’s more important in this assignment to show understanding of arrays and strings than to build a complex solution.
+--------------------------------------------------------------------
+## 07-10-2015
+Work done:
+Changed a lot of the code to a simpler and more readably program using If -statment.
+
+Reasoning / Learning:
+Simplifying methods improves readability and makes debugging easier.
+Learned to test and validate helper functions individually before integrating them.
+
