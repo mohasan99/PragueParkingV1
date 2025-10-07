@@ -18,7 +18,7 @@ The program allows the user to park, move, remove, search, and view the current 
 - Input validation (registration number: 1–10 alphanumeric characters).
 
 ## Technical Details
-- Implemented in **C#** (.NET Console Application).
+- Implemented in C# (.NET Console Application).
 - Storage is handled by a simple `string[100]` array.
 - Vehicles are encoded as:
   - `"CAR#ABC123"` → one car
@@ -27,12 +27,15 @@ The program allows the user to park, move, remove, search, and view the current 
     
 ## Design Choice
 The assignment required us to use a `string[]` to model the parking garage.  
-We considered an object-oriented design with `Car`, `Motorcycle`, and `Slot` classes,  
-but this would not follow the specification.  
+We considered an object-oriented design with `Car`, `Motorcycle`, and `Slot` classes, but this would not follow the specification.
 
-- String version → simpler, matches assignment, good practice with string methods (`Split`, `Join`, `Substring`).  
-- Class version → more flexible for real-world projects, but outside scope of this task.  
-Therefore, the project uses the string-based solution.
+- *String version → simpler, matches assignment, good practice with string methods (`Split`, `Join`, `Substring`).  
+- Class version → more flexible for real-world projects, but outside scope of this task.
+
+- ## Update (29-09-2025)
+Originally, the program used a `class Program` with static methods.  
+To simplify the structure, we refactored to use top-level statements with methods and a shared `string[]` array.  
+This makes the code shorter, easier to read, and still fulfills the assignment requirements.
 
 ## How to Run
 1. Clone the repository:
