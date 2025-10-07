@@ -1,60 +1,98 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using static System.Reflection.Metadata.BlobBuilder;
 
-string[] slots = new string[100]; // Array of 100 strings(slots)
-string[] Vehicles(string slot) => string.IsNullOrEmpty(slot) ? Array.Empty<string>() : slot.Split('|'); // Split slot to vehicles
-string EncodeVehicle(char type, string plate) => (type == 'C' ? "CAR#" : "MC#") + plate; // Encode vehicle type and plate
-string NormalizePlate(string plate) => (plate ?? "").Trim().ToUpperInvariant(); // Normalize plate, null to empty, trim, uppercase
-bool ValidPlate(string plate) => plate.Length >= 1 && plate.Length <= 10 && plate.All(char.IsLetterOrDigit); // Plate validation
-bool IsSlotEmpty(int index) => string.IsNullOrEmpty(slots[index]);// Check if slot is empty
-bool IsCarSlot(int index) => !IsSlotEmpty(index) && slots[index].StartsWith("CAR#"); // Check if slot has a car
-bool isMcSlot(int index) => !IsSlotEmpty(index) && slots[index].StartsWith("MC#"); // Check if slot has a motorcycle
-bool FindPlate(string plate, out int slot) // Search for a plate in all slots
+string[] Slots = new string[100]; // Array to hold 100 parking slots
+string[] Vehicles(string slot) // Function to get vehicles in a slot
 {
-    plate = NormalizePlate(plate); // Normalize plate, trim spaces, uppercase
-    for (int i = 0; i < slots.Length; i++) // Loops through all slots
+    if (string.IsNullOrEmpty(slot))
+        return Array.Empty<string>();
+            return slot.Split('|');  
+}
+string EncodeVehicle(char type, string plate)   //Encode vehicles
+{
+    if (type == 'C')
+        return "Car#" + plate;
+    else                                     
+        return "MC#" + plate;
+}
+string NormalizePlate( string plate)// Normalize plate, trim and uppercase
+{
+    if (plate == null)
+        return "";                       
+    return plate.Trim().ToUpper();
+}
+bool ValidPlate(string plate) // Validate plate format
+{
+    if (plate.Length < 1 || plate.Length > 10)
+        return false;
+
+    if (!plate.All(char.IsLetterOrDigit))
+        return false;
+
+    return true;
+}
+string PlateOf(string vehicle) // Extract plate from encoded vehicle
+{
+    int index = vehicle.IndexOf('#');
+    if (index == -1) return vehicle; 
+    return vehicle.Substring(index + 1);
+}
+int FirstEmpty() // Return first empty slot index
+{
+    for (int i = 0; i < Slots.Length; i++)
+        if (string.IsNullOrEmpty(Slots[i])) return i;  
+    return -1;
+}
+int FirstSingleMc() // first slot with exactly one MC, or -1 if none
+{
+    for (int i = 0; i < Slots.Length; i++)
     {
-        if (!string.IsNullOrEmpty(slots[i]) && slots[i].Contains(plate, StringComparison.OrdinalIgnoreCase))
+        string slot = Slots[i];
+        if (string.IsNullOrEmpty(slot))
+            continue;
+
+        if (slot.StartsWith("MC#") && Vehicles(slot).Length == 1)
+            return i;
+    }
+    return -1;
+}
+bool FindPlate(string plate, out int slot) // Find slot containing the plate
+{ 
+    plate = NormalizePlate(plate);
+    for (int i = 0; i < Slots.Length; i++)
+    {
+        if (!string.IsNullOrEmpty(Slots[i]) && Slots[i].Contains(plate, StringComparison.OrdinalIgnoreCase))
         {
             slot = i;
-            return true; // Found plate
+            return true;
         }
     }
     slot = -1;
-    return false; // Not found plate
+    return false;
 }
-
-int FirstEmpty()
-{ 
-    for (int i = 0; i <slots.Length; i++)
-        if (string.IsNullOrEmpty(slots[i])) return i; // Return first empty slot index
-    return -1; // No empty slots
-}
-
-int FirstSingleMc()
-{ 
- for(int i = 0; i < slots.Length; i++)
-    {
-        var slot = slots[i];
-        if (!string.IsNullOrEmpty(slot) && slot.StartsWith("MC#") && Vehicles(slot).Length == 1)
-                return i;
-    }
-return -1; // No single motorcycle slots
-}
-
-bool Park(char type, string plate, out string message)
+bool Park ( char type, string plate, out string message)
 {
-    plate = NormalizePlate(plate); // Normalize plate, trim spaces, uppercase
+    plate = NormalizePlate(plate);
 
-    if (!ValidPlate(plate))
-    { message = "Invalid plate. Must be 1-10 alphanumeric characters."; return false; } // Invalid plate
-    if (FindPlate(plate out_))
 
-    { message = $"Vehicle already parked"; return false; } // Plate already parked
-    if (type == 'C')
-    { int i = FirstEmpty();
-        if (i == -1) { message = "No free slots for cars."; return false; } // No empty slots
-        slots[i] = EncodeVehicle('C', plate);
-        message = $"Car parked in slot {i + 1}."; return true; // Car parked
-    }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
