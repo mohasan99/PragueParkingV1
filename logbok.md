@@ -50,3 +50,24 @@ Reasoning / Learning:
 Simplifying methods improves readability and makes debugging easier.
 Learned to test and validate helper functions individually before integrating them.
 
+## 08-10-2025
+Final development phase
+
+Work done:
+
+Continued simplifying and refining the program to make it more stable, readable, and user-friendly.
+
+Focused on improving menu navigation, input validation, and message feedback for all main functions (park, move, remove, find, and show status).
+
+Debugged several logic issues to ensure consistent behavior across all features.
+
+Verified that helper methods like IsSlotEmpty(), NormalizePlate(), and FindPlate() work together correctly.
+
+Reasoning / Learning:
+
+Learned the importance of testing functions both individually and as part of the full program flow.
+
+Realized how small changes, such as clearer messages and simpler logic, make the program easier to understand for the user.
+
+The final version balances functionality and simplicity while following the assignment’s requirements.
+--------------------------------------------------------------------------
