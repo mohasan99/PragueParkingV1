@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using static System.Reflection.Metadata.BlobBuilder;
 
 string[] Slots = new string[100]; // Array to hold 100 parking slots
 string[] Vehicles(string slot) // Function to get vehicles in a slot
