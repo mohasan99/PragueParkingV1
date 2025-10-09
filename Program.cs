@@ -169,20 +169,63 @@ char AskType() // Ask user for vehicle type
 }
 bool Move(string plate, int targetSlot1to100, out string message) // Move vehicle logic
 {
-    plate = NormalizePlate(plate); 
-    FindPlate(plate, out int from); //
-    int to = targetSlot1to100 - 1; 
+    plate = NormalizePlate(plate);
 
-    // Check if the target slot is empty before moving
-    if (!IsSlotEmpty(to))
+    if (!FindPlate(plate, out int from))
     {
-        message = $"Slot {to + 1} is not empty!";
+        message = "Vehicle not found.";
         return false;
     }
-    // Move vehicle text from source to target
-    Slots[to] = Slots[from];
-    Slots[from] = null;
+    int to = targetSlot1to100 - 1; 
 
+    // get the vehicles from the source slot
+    string[] fromVehicles = Vehicles(Slots[from]);
+    string vehicle = null;
+
+    for (int i = 0; i < fromVehicles.Length; i++) // Find the specific vehicle to move
+    {
+        if (PlateOf(fromVehicles[i]).Equals(plate, StringComparison.OrdinalIgnoreCase)) 
+        {
+            vehicle = fromVehicles[i];
+            break;
+        }
+    }
+
+    bool isCar = vehicle.StartsWith("CAR#");
+
+    // place on target 
+    string target = Slots[to];
+
+    if (isCar) 
+    {
+        if (!string.IsNullOrEmpty(target))
+        { message = "Target slot must be empty for a car."; return false; }
+        Slots[to] = vehicle;
+    }
+    else
+    {
+        if (!string.IsNullOrEmpty(target) && target.StartsWith("CAR#"))
+        { message = "Target slot has a car."; return false; }
+
+        string[] targetVehicles = Vehicles(target);
+        if (targetVehicles.Length >= 2)
+        { message = "Target slot already has two motorcycles."; return false; }
+
+        if (string.IsNullOrEmpty(target))
+            Slots[to] = vehicle;
+        else
+            Slots[to] = target + "|" + vehicle;
+    }
+
+    // rebuild the from-slot 
+    string rebuilt = null;
+    for (int i = 0; i < fromVehicles.Length; i++)
+    {
+        if (fromVehicles[i] == vehicle) continue;
+        rebuilt = (rebuilt == null) ? fromVehicles[i] : rebuilt + "|" + fromVehicles[i];
+    }
+
+    Slots[from] = rebuilt;
     message = $"Moved {plate} to slot {to + 1}.";
     return true;
 }
