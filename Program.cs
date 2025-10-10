@@ -139,10 +139,10 @@ bool Park ( char type, string plate, out string message) // Park vehicle logic
         message = "Vehicle not found";
         return false; 
     }   
-    string current = Slots[slot]; 
-    
+    string current = Slots[slot]; // Get current vehicles in the slot
+
     current = current.Replace($"CAR#{plate}", ""); 
-    current = current.Replace($"MC#{plate}", "");
+    current = current.Replace($"MC#{plate}", ""); 
 
     current = current.Replace("||", "|").Trim('|'); // Clean up any double separators or leading/trailing '|'
     Slots[slot] = string.IsNullOrEmpty(current) ? null : current;  // If slot is empty after removal, set to null
